@@ -40,9 +40,11 @@ void swap(char** a, char** b) {
 
 char* getLongestString(char** strings, int size) {
 	char* max = NULL;
+  int max_len = 0;
 	for (int i = 0; i < size; i++) {
-		if (strlen(max) < strlen(strings[i])) {
+		if (max_len < strlen(strings[i])) { // we should not call strlen(NULL) because it's dereferensing a pointer to NULL
 			max = strings[i];
+      max_len = strlen(max);
 		}
 	}
 	return max;
@@ -53,7 +55,7 @@ void sortStrings(char** strings, int size) {
 	while (changed) {
 		changed = false;
 		for (int i = 0; i < size - 1; i++) {
-			if (strcmp(strings[i], strings[i + 1]) >= 0) {
+			if (strcmp(strings[i], strings[i + 1]) > 0) { // if we swap identical strings we will get into infite loop. Therefore we will swap iff strcmp() returns positive value
 				swap(&strings[i], &strings[i + 1]);
 				changed = true;
 			}
@@ -72,7 +74,7 @@ void printResults(char** words, int size) {
 	char* longest = getLongestString(words, size);
 	printf("The longest word is: %s\n", longest);
 	sortStrings(words, size);
-	printf("The maximal word lexicographically is: %s\n", words[size]);
+	printf("The maximal word lexicographically is: %s\n", words[size - 1]); // indexing in c starts with 0 and ends in size - 1, we sould not print words[size]
 	printf("The minimal word lexicographically is: %s\n", words[0]);
 }
 
