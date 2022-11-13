@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <string.h> // for strlen()
-#include <stdlib.h> // for atoi()
 
 #define NOT_POWER_OF_TWO -2000
 
@@ -10,25 +8,17 @@ enum {false, true};
 /** Calculates the exponent of 2 which equals the number. Returns negetive number if the number isn't a power of two **/
 int calculateExponent(int number);
 
-/** Return true iff str represents int **/
-int isInt(char str[]);
-
 //===============================================================================
 
 int main()
 {
   printf("Enter size of input:\n");
   int inputSize = {0};
-  char str[50];
-  scanf("%s", str);
-  inputSize = atoi(str);
-  if(!isInt(str) || inputSize <= 0)
+  if(!scanf("%d", &inputSize) || inputSize <= 0)
   {
     printf("Invalid size\n");
     return 0;
   }
-  inputSize = atoi(str);
-
   printf("Enter numbers:\n");
   int numbersArr[inputSize];
   for(int i = 0; i < inputSize; i++)
@@ -66,17 +56,4 @@ int calculateExponent(int number)
   return calculateExponent(number/2) + 1;
 }
 
-int isInt(char str[])
-{
-  int len = strlen(str);
-  for(int i = 0; i < len; i++)
-    {
-      if(!('1' <= str[i] && str[i] <= '9'))
-      {
-        //if(!(str[i] == '\n' || str[i] == EOF || str[i] == '\0')) // The least character is '\n' when using the tesminal
-          return false;
-      }
-    }
-  return true;
-}
 
